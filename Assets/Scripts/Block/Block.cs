@@ -31,6 +31,7 @@ public class Block : MonoBehaviour
 
     BlockPart[] BlockParts;
 
+    Vector3 previousPosition;
 
     private void OnEnable()
     {
@@ -39,6 +40,11 @@ public class Block : MonoBehaviour
     private void OnDisable()
     {
         Grinder.BlockDestroyedEvent -= OnBlockDestroyed;
+    }
+
+    private void LateUpdate()
+    {
+        previousPosition = transform.position;
     }
 
     private void Start()
@@ -116,38 +122,21 @@ public class Block : MonoBehaviour
                 break;
         }
 
+        Vector2 vector = new Vector2(xMovement,zMovement);
+        foreach (BlockPart part in BlockParts)
+        {
+            if(part.DetectColission(vector))
+            {
+                xMovement = 0;
+                zMovement = 0;
+            }
+        }
+
 
         return new Vector3 (xMovement,0, zMovement);
     }
 
 
-    public bool CheckMovement(Vector3 movementDelta,out Vector3 newDelta)
-    {
-        newDelta = movementDelta;
-        foreach (BlockPart part in BlockParts)
-        {
-            if (!part.CheckMovement(movementDelta,out Vector3 partDelta))
-            {
-                newDelta = SetNewDelta(movementDelta,partDelta);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    Vector3 SetNewDelta(Vector3 delta,Vector3 partDelta)
-    {
-        if(Mathf.Abs(partDelta.x) < Mathf.Abs(delta.x))
-        {
-            delta.x = partDelta.x;
-        }
-
-        if(Mathf.Abs(partDelta.z) < Mathf.Abs(delta.z))
-        {
-            delta.z = partDelta.z;
-        }
-        return delta;
-    }
 
 
     public void CheckGrinder(Grinder grinder)
@@ -215,4 +204,5 @@ public class Block : MonoBehaviour
         Destroy(gameObject);
 
     }
+
 }

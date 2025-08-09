@@ -93,7 +93,15 @@ public class BlockPart : MonoBehaviour
         }
         else
         {
-            return Mathf.Min(closestRayDistance, Mathf.Abs(xMoveDelta) * Mathf.Sign(xMoveDelta));
+            float correctedRayDistance = closestRayDistance - 0.1f;
+            if (correctedRayDistance < Mathf.Abs(xMoveDelta))
+            {
+                return correctedRayDistance * Mathf.Sign(xMoveDelta);
+            }
+            else
+            {
+                return xMoveDelta;
+            }
         }
     }
 
@@ -141,104 +149,62 @@ public class BlockPart : MonoBehaviour
         }
         else
         {
-            return Mathf.Min(closestRayDistance,Mathf.Abs(zMoveDelta)) * Mathf.Sign(zMoveDelta);
+            float correctedRayDistance = closestRayDistance - 0.1f;
+            if (correctedRayDistance < Mathf.Abs(zMoveDelta))
+            {
+                return correctedRayDistance * Mathf.Sign(zMoveDelta);
+            }
+            else
+            {
+                return zMoveDelta;
+            }
         }
     }
 
-
-    public bool CheckMovement(Vector3 movementDelta,out Vector3 newDelta)
+    public bool DetectColission(Vector2 movementVector)
     {
-        //for (int i = 0; i < RayPositions.Count; i++)
-        //{
-        //    Ray ray = new Ray(RayPositions[i].position, RayPositions[i].forward);
-        //    if (Physics.Raycast(ray, out RaycastHit hit, 0.2f, LayerMask.NameToLayer("Block")))
-        //    {
-        //        if(hit.collider.TryGetComponent(out Block otherBlock))
-        //        {
-        //            newDelta = movementDelta;
-        //            //newDelta = hit.distance;
-        //            return false;
-        //        }
-        //    }
-        //}
-
-        bool sideWays = CheckSideways(movementDelta,out float x);
-        bool forwards = CheckForward(movementDelta,out float z);
-
-        if (!sideWays && !forwards)
+        List<Vector3> RayPoints = new List<Vector3>();
+        float xMoveDelta = movementVector.x;
+        float zMoveDelta = movementVector.y;
+        if (xMoveDelta < 0)
         {
-            newDelta = Vector3.zero;
-            return false;
+            RayPoints.Add(TopLeftPoint.position);
+            RayPoints.Add(MiddleLeftPoint.position);
+            RayPoints.Add(BottomLeftPoint.position);
         }
-        else
+        else if (xMoveDelta > 0)
         {
-            newDelta = new Vector3(x, 0, z);
-            return true;
+            RayPoints.Add(TopRightPoint.position);
+            RayPoints.Add(MiddleRightPoint.position);
+            RayPoints.Add(BottomRightPoint.position);
         }
 
-
-            Collider[] colliders = Physics.OverlapBox(transform.position + movementDelta, Vector3.one * 0.5f, transform.rotation);
-        if (colliders.Length > 0)
+        if (zMoveDelta < 0)
         {
-            for (int i = 0; i < colliders.Length; i++)
+            RayPoints.Add(BottomRightPoint.position);
+            RayPoints.Add(BottomLeftPoint.position);
+            RayPoints.Add(MiddleBottomPoint.position);
+        }
+        else if (zMoveDelta > 0)
+        {
+            RayPoints.Add(TopRightPoint.position);
+            RayPoints.Add(TopLeftPoint.position);
+            RayPoints.Add(MiddleTopPoint.position);
+        }
+
+        for (int i = 0; i < RayPoints.Count; i++)
+        {
+            Ray ray = new Ray(RayPoints[i], new Vector3(movementVector.x,0,movementVector.y));
+            if (Physics.Raycast(ray, out RaycastHit hit, movementVector.magnitude))
             {
-                if (colliders[i].TryGetComponent(out Block otherBlock))
+                if (hit.collider.GetComponent<Block>() != Block)
                 {
-                    Debug.Log(otherBlock.name);
-                    if(otherBlock != Block)
-                    {
-                        return false;
-                    }
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
-
-    bool CheckSideways(Vector3 movementDelta,out float x)
-    {
-        x = movementDelta.x;
-        Collider[] colliders = Physics.OverlapBox(transform.position + Vector3.right * movementDelta.x, Vector3.one * 0.5f, transform.rotation);
-        if (colliders.Length > 0)
-        {
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].TryGetComponent(out Block otherBlock))
-                {
-                    if (otherBlock != Block)
-                    {
-                        x = colliders[i].transform.position.x - 0.51f * Mathf.Sign(-movementDelta.x) - Block.transform.position.x;
-                        Debug.DrawRay(transform.position + Vector3.right * movementDelta.x, Vector3.up, Color.red);
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    bool CheckForward(Vector3 movementDelta,out float z)
-    {
-        z = movementDelta.z;
-        Collider[] colliders = Physics.OverlapBox(transform.position + Vector3.forward * movementDelta.z, Vector3.one * 0.5f, transform.rotation);
-        if (colliders.Length > 0)
-        {
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].TryGetComponent(out Block otherBlock))
-                {
-                    if (otherBlock != Block)
-                    {
-                        z = colliders[i].transform.position.z - 0.51f * Mathf.Sign(-movementDelta.z) - Block.transform.position.z;
-                        Debug.DrawRay(transform.position + Vector3.forward * movementDelta.z, Vector3.up, Color.red);
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
     public void CheckIsTouchingGrinder()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position, Vector3.one * 1f, transform.rotation,LayerMask.GetMask("Grinder"));

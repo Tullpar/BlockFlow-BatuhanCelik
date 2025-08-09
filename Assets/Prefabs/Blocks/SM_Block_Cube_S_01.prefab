@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f97a497cba15654b8448434c901e28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IceBlockDisplay: {fileID: 0}
+  IsDestroyed: 0
   Index: 0
   BlockSize: {x: 1, y: 1}
   IceCounter: 0

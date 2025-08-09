@@ -6,10 +6,12 @@ public class BlockMovement : MonoBehaviour
     Vector3 offset;
     public Plane MovementPlane;
 
+
     private void Start()
     {
         MovementPlane = new Plane(Vector3.up, transform.position);
     }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -73,9 +75,9 @@ public class BlockMovement : MonoBehaviour
 
     Vector3 ClampMovementVector(Vector3 movementVector)
     {
-        if(movementVector.magnitude > 0.1f)
+        if(movementVector.magnitude > 0.4f)
         {
-            movementVector = movementVector.normalized * 0.1f; 
+            movementVector = movementVector.normalized * 0.4f; 
         }
         return movementVector;
     }
