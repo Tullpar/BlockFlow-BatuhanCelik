@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075a12a1536af484f8313e8f928baaa0, type: 3}
+  m_Name: New Color Data
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 6db4ba1e88d6c684091357606e85dfe0, type: 2}
+  - {fileID: 2100000, guid: 8d0dfd6da3bdcd7439be83055f94a6e7, type: 2}
+  - {fileID: 2100000, guid: 366c2da2257ec08439fed49543d80656, type: 2}
+  - {fileID: 2100000, guid: 7c4193fe0e59a234e9add6372325059a, type: 2}
+  - {fileID: 2100000, guid: dba56c0c9b830ab43ba18f7b41d354de, type: 2}
+  - {fileID: 2100000, guid: 0e5f53dad4d257549ab8f3c4ac01fc42, type: 2}
+  - {fileID: 2100000, guid: c7514ac4aa5e94142b4bf3134cd4e0a8, type: 2}
+  - {fileID: 2100000, guid: 76fdd1ce3cf4f624da83644a14960e6f, type: 2}
+  iceMaterial: {fileID: 2100000, guid: eeb9cd07333854440abb5c798c9a166d, type: 2}

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4097998117505028412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8646507232083607307}
+  - component: {fileID: 8373072988569803918}
+  m_Layer: 0
+  m_Name: Block Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8646507232083607307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097998117505028412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8373072988569803918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097998117505028412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33462a239618644dbd18c884ae6dddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockPrefabs:
+  - {fileID: 3537849831924240892, guid: c0120ed3d15590148988a3c81952c97d, type: 3}
+  - {fileID: 6504621926697193398, guid: 6c0338fe9dbee484396fd7821a97a941, type: 3}
+  - {fileID: 4874351880728966238, guid: f16d2b27ad3147c46894c66a32e96920, type: 3}
+  - {fileID: 929347417973058537, guid: 61134633911206f49b7fc55823871553, type: 3}
+  - {fileID: 946570372927314175, guid: e8655fe64bcc8b2488fa35241f8ba6f0, type: 3}
+  - {fileID: 3200924904720535184, guid: cbd1bc7fddf2604479be98b71a4bb7f2, type: 3}
+  - {fileID: 7952103782325611709, guid: 64ae5f0f1e29be24aa69998e9c8ca5f6, type: 3}
+  - {fileID: 2915166750464200327, guid: b9532523b0a477f4d9407188bd7fbc32, type: 3}
+  - {fileID: 8878652929546927107, guid: fe12a6b22d7d73448b7e9fc45525430a, type: 3}
+  - {fileID: 3035453041915137476, guid: c7a608aef258fde4aa9056551f8b5e21, type: 3}
+  - {fileID: 2014234334726688780, guid: 614a1413caf766746a7f3aa345f55f0a, type: 3}
+  - {fileID: 5917574454936163680, guid: 5bfd04996998f5644a0bf8d607091953, type: 3}
+  SpawnedBlocks: []
